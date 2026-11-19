@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SGM ValPasta</title>
+  <link rel="icon" href="img/logo.png">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="topo-mobile">
+    <span class="logo-box"><img src="img/logo.png" alt="ValPasta"></span>
+    <button class="menu-btn" id="menuBtn" aria-label="Abrir menu">☰</button>
+  </div>
+
+  <aside class="sidebar" id="sidebar">
+    <span class="logo-box"><img src="img/logo.png" alt="ValPasta"></span>
+    <div class="perfil"><strong id="perfilNome"></strong><span id="usuarioNome"></span></div>
+    <nav class="nav" id="nav"></nav>
+    <button class="sair" id="sair">Sair</button>
+  </aside>
+
+  <main>
+    <div class="cabecalho"><h1 id="titulo"></h1><span class="pilula-alerta" id="alertas"></span></div>
+    <section id="view" aria-live="polite"></section>
+  </main>
+
+  <div id="toast"></div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

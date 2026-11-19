@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Entrar | SGM ValPasta</title>
+  <link rel="icon" href="img/logo.png">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="login-pagina">
+  <div class="login-card">
+    <img src="img/logo.png" alt="ValPasta">
+    <h1>Gestão de Manutenção</h1>
+    <p class="sub">Entre com seu e-mail e senha</p>
+    <form id="form">
+      <label for="email">E-mail</label>
+      <input id="email" type="email" autocomplete="username" required autofocus>
+      <label for="senha">Senha</label>
+      <input id="senha" type="password" autocomplete="current-password" required>
+      <p class="erro-form" id="erro" role="alert"></p>
+      <button class="btn verde" style="width:100%;margin-top:6px" id="entrar">Entrar</button>
+    </form>
+    <div class="demo">
+      <b>Contas de demonstração</b> (senha 123456)<br>
+      gerente@valpasta.com · tecnico@valpasta.com · operador@valpasta.com
+    </div>
+  </div>
+<script>
+  if (localStorage.getItem('token')) location.replace('app.html');
+  document.getElementById('form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const erro = document.getElementById('erro'), btn = document.getElementById('entrar');
+    erro.textContent = ''; btn.disabled = true;
+    try {
+      const r = await fetch('/api/auth/login', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email.value, senha: senha.value }),
+      });
+      const d = await r.json();
+      if (!r.ok) throw new Error(d.erro || 'Não foi possível entrar');
+      localStorage.setItem('token', d.token);
+      localStorage.setItem('user', JSON.stringify(d.user));
+      const destino = sessionStorage.getItem('destino');   // ex.: veio de um QR Code
+      sessionStorage.removeItem('destino');
+      location.replace('app.html' + (destino || ''));
+    } catch (err) { erro.textContent = err.message; btn.disabled = false; }
+  });
+</script>
+</body>
+</html>
