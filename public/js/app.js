@@ -49,18 +49,26 @@ const fecharModal = () => $('#modal')?.remove();
 document.addEventListener('keydown', e => { if (e.key === 'Escape') fecharModal(); });
 
 /* ---------- menu por perfil ---------- */
+const ICONES = {
+  dashboard: '<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>',
+  maquinas: '<circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="6.5"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"/>',
+  funcionarios: '<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6"/><circle cx="17.5" cy="9" r="2.5"/><path d="M17 14.2c2.6.2 4.5 2 4.5 5.3"/>',
+  os: '<rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4h6v3H9z"/><path d="M9 12h6M9 16h4"/>',
+  estoque: '<path d="M3 7.5 12 3l9 4.5v9L12 21l-9-4.5z"/><path d="M3 7.5 12 12l9-4.5M12 12v9"/>',
+  relatorios: '<path d="M3 3v18h18"/><path d="M8 17v-5M13 17V7M18 17v-8"/>',
+};
 const MENU = [
-  { rota: 'dashboard', nome: '▣ Dashboard', perfis: ['gerente', 'tecnico', 'operador'] },
-  { rota: 'maquinas', nome: '⚙ Máquinas', perfis: ['gerente', 'tecnico'] },
-  { rota: 'funcionarios', nome: '👤 Funcionários', perfis: ['gerente'] },
-  { rota: 'os', nome: '🛠 Ordens de Serviço', perfis: ['gerente', 'tecnico', 'operador'] },
-  { rota: 'estoque', nome: '📦 Estoque', perfis: ['gerente', 'tecnico'] },
-  { rota: 'relatorios', nome: '📊 Relatórios', perfis: ['gerente'] },
+  { rota: 'dashboard', nome: 'Dashboard', perfis: ['gerente', 'tecnico', 'operador'] },
+  { rota: 'maquinas', nome: 'Máquinas', perfis: ['gerente', 'tecnico'] },
+  { rota: 'funcionarios', nome: 'Funcionários', perfis: ['gerente'] },
+  { rota: 'os', nome: 'Ordens de Serviço', perfis: ['gerente', 'tecnico', 'operador'] },
+  { rota: 'estoque', nome: 'Estoque', perfis: ['gerente', 'tecnico'] },
+  { rota: 'relatorios', nome: 'Relatórios', perfis: ['gerente'] },
 ];
 $('#perfilNome').textContent = user.perfil;
 $('#usuarioNome').textContent = user.nome;
 $('#nav').innerHTML = MENU.filter(m => m.perfis.includes(user.perfil))
-  .map(m => `<a href="#/${m.rota}" data-rota="${m.rota}">${m.nome}</a>`).join('');
+.map(m => `<a href="#/${m.rota}" data-rota="${m.rota}"><svg viewBox="0 0 24 24" aria-hidden="true">${ICONES[m.rota]}</svg><span>${m.nome}</span></a>`).join('');
 $('#sair').onclick = sair;
 $('#menuBtn').onclick = () => $('#sidebar').classList.toggle('aberta');
 
@@ -335,7 +343,7 @@ async function telaOS() {
     <div class="card tabela"><table>
       <thead><tr><th>OS</th><th>Data</th><th>Máquina</th><th>Tipo</th><th>Status</th><th>Técnico</th><th>Peças</th><th>Tempo</th><th>Descrição</th><th>Foto</th><th></th></tr></thead>
       <tbody>${os.map(o => `<tr>
-        <td>#${o.id_os}${o.automatica ? ' 🤖' : ''}</td><td>${dt(o.data_abertura)}</td><td>${esc(o.id_maquina)}</td>
+        <td>#${o.id_os}${o.automatica ? '' : ''}</td><td>${dt(o.data_abertura)}</td><td>${esc(o.id_maquina)}</td>
         <td><span class="etq ${o.tipo}">${o.tipo}</span></td><td><span class="etq ${o.status}">${o.status}</span></td>
         <td>${esc(o.tecnico || '—')}</td><td>${esc(o.pecas || '—')}</td>
         <td>${o.tempo_reparo != null ? o.tempo_reparo + 'h' : o.tempo_estimado != null ? '~' + o.tempo_estimado + 'h' : '—'}</td>

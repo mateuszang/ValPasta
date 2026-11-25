@@ -25,13 +25,16 @@ button,input,select,textarea{font:inherit}
 
 /* ---------- Layout ---------- */
 .sidebar{position:fixed;inset:0 auto 0 0;width:250px;background:var(--azul);color:#fff;display:flex;flex-direction:column;padding:24px 0;overflow-y:auto;z-index:20}
-.logo-box{background:#fff;border-radius:var(--raio);margin:0 30px 18px;padding:8px 10px;display:block}
+.logo-box{border-radius:var(--raio);margin:0 30px 18px;padding:8px 10px;display:block}
 .logo-box img{width:100%;display:block}
 .perfil{text-align:center;padding:0 16px 18px}
 .perfil strong{display:block;letter-spacing:.06em;font-size:1.25rem;text-transform:uppercase}
 .perfil span{font-size:.82rem;opacity:.8}
 .nav{display:flex;flex-direction:column;margin-top:6px}
-.nav a{color:#fff;text-decoration:none;padding:13px 22px 13px 28px;border-left:4px solid transparent;display:flex;gap:10px;align-items:center;opacity:.92}
+.campo-senha{position:relative}
+.campo-senha input{padding-right:46px}
+.olho{position:absolute;right:4px;top:50%;transform:translateY(-50%);background:none;border:0;border-radius:var(--raio);padding:8px;color:var(--suave);cursor:pointer;display:grid;place-items:center}
+.olho:hover{color:var(--azul);background:var(--fundo)}
 .nav a:hover{background:rgba(255,255,255,.08)}
 .nav a.ativo{background:var(--azul-esc);border-left-color:var(--verde);opacity:1;font-weight:600}
 .sair{margin:auto 22px 0;background:transparent;color:#fff;border:1px solid rgba(255,255,255,.4);padding:9px;border-radius:var(--raio);cursor:pointer}
@@ -157,4 +160,58 @@ td.acoes{white-space:nowrap;text-align:right}
 @media print{
   .sidebar,.topo-mobile,.acoes-topo,#toast{display:none!important}
   main{margin:0;padding:0} body{background:#fff} .card,.kpi{box-shadow:none;border:1px solid #ccc;break-inside:avoid}
+}.sidebar .nav a{display:flex;align-items:center;gap:14px}
+.sidebar .nav a svg{
+  width:21px;
+  height:21px;
+  min-width:21px;
+  flex:none;
+  fill:none;
+  stroke:#fff;
+  stroke-width:1.8;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+/* ===== MENU LATERAL ===== */
+.sidebar .nav{
+  display:flex;
+  flex-direction:column;
+  margin-top:8px;
+}
+.sidebar .nav a,
+.sidebar .nav a:visited{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  padding:13px 22px 13px 24px;
+  color:#fff;
+  text-decoration:none;
+  font-size:.95rem;
+  border-left:4px solid transparent;
+  opacity:.9;
+  transition:background .15s;
+}
+.sidebar .nav a:hover{
+  background:rgba(255,255,255,.1);
+  opacity:1;
+}
+.sidebar .nav a.ativo{
+  background:#00267f;
+  border-left-color:#0ab800;
+  opacity:1;
+  font-weight:600;
+}
+.sidebar .nav a svg{
+  width:21px;
+  height:21px;
+  min-width:21px;
+  flex:none;
+  fill:none;
+  stroke:#fff;
+  stroke-width:1.8;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+.sidebar .nav a span{
+  color:#fff;
 }
